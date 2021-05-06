@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameBehavior : MonoBehaviour
 {
+    public Stack<string> lootStack = new Stack<string>();
     public string labelText = "Collect all 4 items to win!";
     public int maxItems = 4;
+    private int _playerHP = 10;
     private int _itemsCollected = 0;
     public bool showWinScreen = false;
     public bool showLossScreen = false;
@@ -22,7 +24,7 @@ public class GameBehavior : MonoBehaviour
             {
                 labelText = "You've found all the items!";
                 showWinScreen = true;
-                Time.timeScale = 0f;
+                TimeFreeze();
             }
             else
             {
@@ -32,20 +34,17 @@ public class GameBehavior : MonoBehaviour
 
     }
 
-    private int _playerHP = 10;
-
     public int HP
     {
         get { return _playerHP; }
         set
         {
             _playerHP = value;
-            //Debug.LogFormat("Lives: {0}", _playerHP);
             if (_playerHP <= 0)
             {
                 labelText = "You have died.";
                 showLossScreen = true;
-                Time.timeScale = 0;
+                TimeFreeze();
             }
             else
             {
@@ -54,7 +53,13 @@ public class GameBehavior : MonoBehaviour
         }
     }
 
-    private void OnGUI()
+    void TimeFreeze()
+    {
+        Time.timeScale = 0;
+    }
+
+
+    void OnGUI()
     {
         GUI.Box(new Rect(20, 20, 150, 25), "Player Health: " + _playerHP);
 
@@ -66,16 +71,14 @@ public class GameBehavior : MonoBehaviour
         {
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 100), "YOU WON!"))
             {
-                SceneManager.LoadScene(0);
-                Time.timeScale = 1.0f;
+                Utilities.RestartLevel();
             }
         }
         if (showLossScreen)
         {
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 -50, 200, 100), "You lose..."))
             {
-                SceneManager.LoadScene(0);
-                Time.timeScale = 1.0f;
+                Utilities.RestartLevel();
             }
         }
     }

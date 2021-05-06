@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\ItemBehavior.cs" />
     <Compile Include="Assets\Scripts\LearningCurve.cs" />
     <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
+    <Compile Include="Assets\Scripts\Utilities.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
